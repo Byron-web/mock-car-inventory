@@ -12,6 +12,14 @@ function Cars() {
     registration: "",
     address: "",
   });
+  const [editCar, setEditCar] = useState({
+    model: "",
+    make: "",
+    color: "",
+    owner: "",
+    registration: "",
+    address: "",
+  });
 
   useEffect(() => {
     fetch("http://localhost:5000/api/cars")
@@ -21,11 +29,6 @@ function Cars() {
       })
       .catch((error) => console.log(error));
   }, []);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setNewCar({ ...newCar, [name]: value });
-  };
 
   const handleCreate = () => {
     fetch("http://localhost:5000/api/cars", {
@@ -52,6 +55,22 @@ function Cars() {
         }
       })
       .catch((error) => console.log(error));
+  };
+
+  const handleEdit = (car) => {
+    console.log("Editing car:", car);
+    fetch(`http://localhost:5000/api/cars/${car._id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setEditCar(data);
+        setShowModal(true);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const handleEditInputChange = (event) => {
+    const { name, value } = event.target;
+    setEditCar({ ...editCar, [name]: value });
   };
 
   const handleCloseModal = () => setShowModal(false);
@@ -89,7 +108,9 @@ function Cars() {
                   >
                     Delete
                   </Button>{" "}
-                  <Button variant="success">Edit</Button>
+                  <Button variant="success" onClick={() => handleEdit(car)}>
+                    Edit
+                  </Button>
                 </div>
               </td>
             </tr>
@@ -102,74 +123,68 @@ function Cars() {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Create Car</Modal.Title>
+          <Modal.Title>{editCar._id ? "Edit Car" : "Create Car"}</Modal.Title>
         </Modal.Header>
-        <Form onSubmit={handleCreate}>
+        <Form onSubmit={editCar._id ? handleEdit : handleCreate}>
           <Modal.Body>
             <Form.Group controlId="model">
               <Form.Label>Model</Form.Label>
               <Form.Control
                 type="text"
+                placeholder="Enter model"
                 name="model"
-                placeholder="Enter car model"
-                value={newCar.model}
-                onChange={handleInputChange}
-                required
+                value={editCar.model}
+                onChange={handleEditInputChange}
               />
             </Form.Group>
             <Form.Group controlId="make">
               <Form.Label>Make</Form.Label>
               <Form.Control
                 type="text"
+                placeholder="Enter make"
                 name="make"
-                placeholder="Enter car make"
-                value={newCar.make}
-                onChange={handleInputChange}
-                required
+                value={editCar.make}
+                onChange={handleEditInputChange}
               />
             </Form.Group>
             <Form.Group controlId="color">
               <Form.Label>Color</Form.Label>
               <Form.Control
                 type="text"
+                placeholder="Enter color"
                 name="color"
-                placeholder="Enter car color"
-                value={newCar.color}
-                onChange={handleInputChange}
-                required
+                value={editCar.color}
+                onChange={handleEditInputChange}
               />
             </Form.Group>
             <Form.Group controlId="owner">
               <Form.Label>Owner</Form.Label>
               <Form.Control
                 type="text"
+                placeholder="Enter owner"
                 name="owner"
-                placeholder="Enter owner name"
-                value={newCar.owner}
-                onChange={handleInputChange}
-                required
+                value={editCar.owner}
+                onChange={handleEditInputChange}
               />
             </Form.Group>
             <Form.Group controlId="registration">
               <Form.Label>Registration</Form.Label>
               <Form.Control
                 type="text"
+                placeholder="Enter registration"
                 name="registration"
-                placeholder="Enter car registration number"
-                value={newCar.registration}
-                onChange={handleInputChange}
-                required
+                value={editCar.registration}
+                onChange={handleEditInputChange}
               />
             </Form.Group>
             <Form.Group controlId="address">
               <Form.Label>Address</Form.Label>
               <Form.Control
                 type="text"
+                placeholder="Enter address"
                 name="address"
-                placeholder="Enter owner address"
-                value={newCar.address}
-                onChange={handleInputChange}
-                required
+                value={editCar.address}
+                onChange={handleEditInputChange}
               />
             </Form.Group>
           </Modal.Body>
@@ -178,7 +193,7 @@ function Cars() {
               Close
             </Button>
             <Button variant="primary" type="submit">
-              Save Changes
+              {editCar._id ? "Update Car" : "Create Car"}
             </Button>
           </Modal.Footer>
         </Form>
