@@ -12,14 +12,6 @@ function Cars() {
     registration: "",
     address: "",
   });
-  const [editCar, setEditCar] = useState({
-    model: "",
-    make: "",
-    color: "",
-    owner: "",
-    registration: "",
-    address: "",
-  });
 
   useEffect(() => {
     fetch("http://localhost:5000/api/cars")
