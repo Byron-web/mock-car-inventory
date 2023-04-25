@@ -1,6 +1,7 @@
 // Import the Express framework
 const express = require("express");
 const mongoose = require("mongoose");
+const carController = require("./controllers/carController");
 const PORT = 5000;
 
 // import routes
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use("/cars", carController);
 
 // Serve the files in the public directory as static files
 app.use(express.static("public"));
