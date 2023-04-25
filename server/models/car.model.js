@@ -10,19 +10,19 @@ const CarSchema = new Schema(
       type: String,
       required: true,
     },
-    Color: {
+    color: {
       type: String,
       required: false,
     },
-    Owner: {
+    owner: {
       type: String,
       required: true,
     },
-    Registration: {
+    registration: {
       type: String,
       required: true,
     },
-    Address: {
+    address: {
       type: String,
       required: true,
     },
@@ -32,5 +32,4 @@ const CarSchema = new Schema(
   }
 );
 
-const Car = model("Car", CarSchema);
-module.exports = Car;
+module.exports = model("cars", CarSchema);

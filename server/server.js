@@ -1,32 +1,28 @@
-// Import the Express framework
 const express = require("express");
 const mongoose = require("mongoose");
-const carController = require("./controllers/carController");
+const carRoutes = require("./routes/car.routes");
 const PORT = 5000;
-
-// import routes
-const authRoute = require("./routes/auth");
 
 // Create a new instance of the Express application
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded());
-app.use("/cars", carController);
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use("/api/cars", carRoutes);
 
 // Serve the files in the public directory as static files
 app.use(express.static("public"));
 
-app.get("/api", (req, res) => {
-  res.send("Server is working!");
+// Service health check
+app.get("/hc", (req, res) => {
+  res.send("healthy");
 });
 
-app.use("/api/auth", authRoute);
-
+// MongoDB configuration
 mongoose
-  .connect(
-    "mongodb+srv://Byron_Labuschagne:UGSezTOWcp96YLwp@test.f6dzjwi.mongodb.net/myFirstDatabase"
-  )
+  .connect("mongodb://localhost:27017/carInventory")
   .then(() => {
     console.log("connected to database");
 

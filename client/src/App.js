@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card, Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import Cars from "./components/Cars";
 
 //Defines the main function component named App.
 function App() {
@@ -72,7 +73,19 @@ function App() {
   // Renders the card components for each object in the state array along with the input fields for adding a new card.
   return (
     <Container>
-      <Row className="mt-5">
+      <Cars />
+    </Container>
+  );
+}
+
+export default App;
+
+/* 
+  Source >> https://www.youtube.com/watch?v=w3vs4a03y3I > How to Create an Express/Node + React Project |
+
+  import { Card, Container, Row, Col, Button, Form } from "react-bootstrap";
+
+  <Row className="mt-5">
         {backendData.map((user, i) => (
           <Col className="d-flex" key={i} sm={6} md={4} lg={3}>
             <Card className="d-flex flex-column justify-content-between align-items-stretch text-center mt-3 w-100">
@@ -152,12 +165,5 @@ function App() {
           </Card>
         </Col>
       </Row>
-    </Container>
-  );
-}
 
-export default App;
-
-/* 
-  Source >> https://www.youtube.com/watch?v=w3vs4a03y3I > How to Create an Express/Node + React Project |
 */
