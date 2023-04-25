@@ -57,15 +57,16 @@ function Cars() {
       .catch((error) => console.log(error));
   };
 
-  const handleEdit = (car) => {
+  const handleEdit = async (car) => {
     console.log("Editing car:", car);
-    fetch(`http://localhost:5000/api/cars/${car._id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setEditCar(data);
-        setShowModal(true);
-      })
-      .catch((error) => console.log(error));
+    try {
+      const response = await fetch(`http://localhost:5000/api/cars/${car._id}`);
+      const data = await response.json();
+      setEditCar(data);
+      setShowModal(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleEditInputChange = (event) => {
