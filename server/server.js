@@ -2,9 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const carRoutes = require("./routes/car.routes");
 const PORT = 5000;
+const cors = require("cors");
 
 // Create a new instance of the Express application
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
 import Cars from "./components/Cars";
+import SearchCar from "./components/SearchCar";
+import IdSearchResult from "./components/IdSearchResult";
 
-//Defines the main function component named App.
 function App() {
-  // Renders the card components for each object in the state array along with the input fields for adding a new card.
   return (
-    <Container>
+    <>
+      <div className="d-flex align-items-center my-3 mx-3">
+        <h1 className="mx-3">All cars</h1>
+        <SearchCar />
+      </div>
       <Cars />
-    </Container>
+      <IdSearchResult />
+    </>
   );
 }
 
 export default App;
-
-/* 
-  Source >>
-
-*/
