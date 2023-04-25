@@ -1,3 +1,5 @@
+const express = require("express");
+const router = express.Router();
 const Car = require("../models/carModel");
 
 exports.findAll = function (req, res) {
@@ -12,3 +14,5 @@ exports.findAll = function (req, res) {
     }
   });
 };
+
+module.exports = router;
